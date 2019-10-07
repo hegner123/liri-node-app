@@ -63,9 +63,9 @@ var songArtist = data.tracks.items[0].album.artists[0].name
 var songName = data.tracks.items[0].name
 var songLink = data.tracks.items[0].external_urls.spotify
 var songAlbum = data.tracks.items[0].album.name
-    console.log(songArtist);
-    console.log(songName);
-    console.log(songLink);
-    console.log(songAlbum)
+    console.log("Artist: " + songArtist);
+    console.log("Song Name: " + songName);
+    console.log("Song Preview: " + songLink);
+    console.log("Album: " + songAlbum)
     });
   }
