@@ -52,7 +52,11 @@ switch(command) {
 
   //  search the bands in town api
   function bandSearch(param){
-    var url = "https://rest.bandsintown.com/artists/" + param + "/events?app_id=" + bandKey
+    var search = "blink+182"
+    if (param){
+      search = param
+    }
+    var url = "https://rest.bandsintown.com/artists/" + search + "/events?app_id=" + bandKey
     axios({
       method: 'get',
       url: url,
@@ -76,7 +80,11 @@ switch(command) {
       };
 
   // search the spotify api by track
-  function spotifySearch(search){
+  function spotifySearch(param){
+    var search = 'The Sign'
+    if (param){
+      search = param
+    };
     spotify.search({ type: 'track', query: search }, function(err, data) {
       if (err) {
         return console.log('Error occurred: ' + err);
@@ -96,7 +104,11 @@ switch(command) {
 
   // search the OMBD api
   function movieSearch(param){
-  var url = 'http://www.omdbapi.com/?apikey=' + movie +'&t=' + param ;
+    var search = "Mr.+Nobody"
+    if (param){
+      search = param
+    };
+  var url = 'http://www.omdbapi.com/?apikey=' + movie +'&t=' + search ;
   axios({
     method: 'get',
     url: url,
