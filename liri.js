@@ -1,30 +1,32 @@
 var x = require("dotenv").config();
+var fs = require("fs");
 var axios = require("axios");
 var keys = require("./keys.js");
 var Spotify = require('node-spotify-api');
 
+
 var spotify = new Spotify(keys.spotify);
+var movie = keys.movieKey;
 
 var command = process.argv[2];
 var param = combine();
 
 switch(command) {
     case "concert-this":
-
+      console.log("concert-this")
       break;
 
     case "spotify-this-song":
-
       spotifySearch(param)
 
       break;
 
     case "movie-this":
-      console.log("movie-this");
+      movieSearch(param);
       break;
 
     case "do-what-it-says":
-      console.log("do what it says");
+      readFile();
       break;
 
     default:
@@ -37,11 +39,11 @@ switch(command) {
     for (i=3;i<process.argv.length;i++) {
       array.push(process.argv[i]);
     }
-    return array.join("-");
+    return array.join("+");
   }
 
   // search the spotify api by track
-  function spotifySearch(search,){
+  function spotifySearch(search){
     spotify.search({ type: 'track', query: search }, function(err, data) {
       if (err) {
         return console.log('Error occurred: ' + err);
@@ -56,3 +58,57 @@ switch(command) {
     console.log("Album: " + songAlbum);
     });
   };
+
+
+  function movieSearch(param){
+  var url = 'http://www.omdbapi.com/?apikey=trilogy&t=' + param ;
+  axios({
+    method: 'get',
+    url: url,
+  })
+    .then(function (response) {
+      var movieTitle = response.data.Title;
+      var movieYear = response.data.Year;
+      var movieRatingImdb = response.data.Ratings[0].Value;
+      var movieRatingRt = response.data.Ratings[1].Value
+      var movieCountry = response.data.Country;
+      var movieLanguage = response.data.Language;
+      var moviePlot = response.data.Plot;
+      console.log('Title: ' + movieTitle)
+      console.log('Year: ' + movieYear)
+      console.log('IMBD Rating: ' + movieRatingImdb)
+      console.log('Rotten Tomatoes Rating: ' + movieRatingRt)
+      console.log('Country: ' + movieCountry)
+      console.log('Language: ' + movieLanguage)
+      console.log('Plot: ' + moviePlot)
+      }).catch(function (error) {
+        console.log(error);
+      });
+    };
+
+
+
+function readFile (){
+  fs.readFile("random.txt", "utf8", function(error, data) {
+    if (error) {
+      return console.log(error);
+    }
+    var dataArr = data.split(",");
+    switch(dataArr[0]) {
+      case "concert-this":
+        console.log("concert this")
+        break;
+
+      case "spotify-this-song":
+        spotifySearch(dataArr[1])
+        break;
+
+      case "movie-this":
+        console.log("movie-this");
+        break;
+
+      default:
+        console.log("I don't recognize one or more of your commands, please try node liri spotify-this-song <song name> or another applicable command");
+    }
+  });
+}
