@@ -124,7 +124,7 @@ function readFile (){
 
     switch(param) {
       case "concert-this":
-        console.log("concert-this")
+          bandSearch(dataSearch)
         break;
 
       case "spotify-this-song":
