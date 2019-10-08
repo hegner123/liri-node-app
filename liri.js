@@ -96,18 +96,21 @@ function readFile (){
       return console.log(error);
     }
     var dataArr = data.split(",");
-    switch(dataArr) {
+    var param = dataArr[0]
+    var dataSearch = dataArr[1]
+
+    switch(param) {
       case "concert-this":
         console.log("concert-this")
         break;
 
       case "spotify-this-song":
-        spotifySearch(param)
+        spotifySearch(dataSearch)
 
         break;
 
       case "movie-this":
-        movieSearch(param);
+        movieSearch(dataSearch);
         break;
 
       default:
