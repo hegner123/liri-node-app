@@ -8,3 +8,7 @@ exports.spotify = {
 exports.movieKey = {
   movieKey: process.env.MOVIE_API
 };
+
+exports.bandKey = {
+  bandKey: process.env.BAND_KEY
+};
