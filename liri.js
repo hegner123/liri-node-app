@@ -1,4 +1,5 @@
 var x = require("dotenv").config();
+var moment = require('moment');
 var fs = require("fs");
 var axios = require("axios");
 var keys = require("./keys.js");
@@ -13,7 +14,7 @@ var param = combine();
 
 switch(command) {
     case "concert-this":
-      console.log("concert-this")
+      bandSearch(param)
       break;
 
     case "spotify-this-song":
@@ -59,9 +60,31 @@ switch(command) {
     });
   };
 
+  function bandSearch(param){
+    var url = "https://rest.bandsintown.com/artists/" + param + "/events?app_id=codingbootcamp"
+    axios({
+      method: 'get',
+      url: url,
+    })
+      .then(function (response) {
+        var concertVenueName = response.data[0].venue.name;
+        var concertVenueCity = response.data[0].venue.city;
+        var concertVenueState = response.data[0].venue.region;
+        var concertCityState = concertVenueCity + " " + concertVenueState;
+        var concertLineup = response.data[0].lineup[0];
+        var date = moment(response.data[0].datetime).format('M,D,YYYY');
+        console.log(concertLineup);
+        console.log(concertVenueName);
+        console.log(concertCityState);
+        console.log(date);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      };
+
 
   function movieSearch(param){
-  var url = 'http://www.omdbapi.com/?apikey=trilogy&t=' + param ;
+  var url = 'http://www.omdbapi.com/?apikey='+ movie +'&t=' + param ;
   axios({
     method: 'get',
     url: url,
@@ -115,6 +138,6 @@ function readFile (){
 
       default:
         console.log("I don't recognize one or more of your commands, please try node liri spotify-this-song <song name> or another applicable command");
-    }
+    };
   });
-}
+};
