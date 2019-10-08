@@ -31,7 +31,7 @@ switch(command) {
 
     default:
       console.log("I don't recognize one or more of your commands, please try node liri spotify-this-song <song name> or another applicable command");
-  }
+  };
 
   // loops through any present process arguments and joins them together in a string seperated by a hyphen
   function combine(){
@@ -74,13 +74,15 @@ switch(command) {
       var movieCountry = response.data.Country;
       var movieLanguage = response.data.Language;
       var moviePlot = response.data.Plot;
-      console.log('Title: ' + movieTitle)
-      console.log('Year: ' + movieYear)
-      console.log('IMBD Rating: ' + movieRatingImdb)
-      console.log('Rotten Tomatoes Rating: ' + movieRatingRt)
-      console.log('Country: ' + movieCountry)
-      console.log('Language: ' + movieLanguage)
-      console.log('Plot: ' + moviePlot)
+      var movieActors = response.data.Actors;
+      console.log('Title: ' + movieTitle);
+      console.log('Year: ' + movieYear);
+      console.log('IMBD Rating: ' + movieRatingImdb);
+      console.log('Rotten Tomatoes Rating: ' + movieRatingRt);
+      console.log('Country: ' + movieCountry);
+      console.log('Language: ' + movieLanguage);
+      console.log('Plot: ' + moviePlot);
+      console.log('Actors: ' + movieActors);
       }).catch(function (error) {
         console.log(error);
       });
@@ -94,17 +96,18 @@ function readFile (){
       return console.log(error);
     }
     var dataArr = data.split(",");
-    switch(dataArr[0]) {
+    switch(dataArr) {
       case "concert-this":
-        console.log("concert this")
+        console.log("concert-this")
         break;
 
       case "spotify-this-song":
-        spotifySearch(dataArr[1])
+        spotifySearch(param)
+
         break;
 
       case "movie-this":
-        console.log("movie-this");
+        movieSearch(param);
         break;
 
       default:
