@@ -30,6 +30,12 @@ switch(command) {
       readFile();
       break;
 
+    case "help":
+      console.log("Available commands: ")
+      console.log('concert-this')
+      console.log('spotify-this-song')
+      console.log('movie-this')
+      console.log('do-what-it-says')
     default:
       console.log("I don't recognize one or more of your commands, please try node liri spotify-this-song <song name> or another applicable command");
   };
@@ -129,12 +135,18 @@ function readFile (){
 
       case "spotify-this-song":
         spotifySearch(dataSearch)
-
         break;
 
       case "movie-this":
         movieSearch(dataSearch);
         break;
+
+      case "help":
+        console.log("Available commands: ")
+        console.log('concert-this')
+        console.log('spotify-this-song')
+        console.log('movie-this')
+        console.log('do-what-it-says')
 
       default:
         console.log("I don't recognize one or more of your commands, please try node liri spotify-this-song <song name> or another applicable command");
